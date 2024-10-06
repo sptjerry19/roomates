@@ -45,7 +45,14 @@ class ShopResource extends JsonResource
             'opening_time' => $this->opening_time ?? null, // Giờ mở cửa
             'closing_time' => $this->closing_time ?? null, // Giờ đóng cửa
             'status' => $this->status ?? null, // Trạng thái
-            'voucher' =>  $this->vouchers ?? null, // Voucher
+            'voucher' =>  $this->vouchers->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'total_price' => floatval($item->total_price),
+                    'discount' => floatval($item->discount),
+                ];
+            }) ?? null, // Voucher
         ];
     }
 }

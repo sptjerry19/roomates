@@ -22,6 +22,7 @@ use App\Http\Controllers\admin\TemplateController;
 use App\Http\Controllers\admin\ToppingController as AdminToppingController;
 use App\Http\Controllers\admin\UnitTypeController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ImageUploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -212,6 +213,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
 
         // storage
         Route::group(['prefix' => 'storage'], function () {
+            Route::get('/upload', [ImageUploadController::class, 'showUploadForm'])->name('upload-form');
+            Route::post('/upload-images', [ImageUploadController::class, 'uploadImages'])->name('upload-images');
+
             Route::group(['prefix' => 'shop'], function () {
                 Route::get('/', [ShopController::class, 'storage'])->name('admin.shop.storage');
             });

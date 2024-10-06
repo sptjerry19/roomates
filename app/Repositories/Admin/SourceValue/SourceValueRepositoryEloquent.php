@@ -19,7 +19,9 @@ class SourceValueRepositoryEloquent extends BaseRepository implements SourceValu
         $keyword = $attributes['keyword'] ?? null;
         return $this->select()->where('company_id', $companyId)
             ->when(!is_null($keyword), function ($query) use ($keyword) {
-                return $query->where('name', 'like', '%' . $keyword . '%');
+                return $query->whereHas('source', function ($query) use ($keyword) {
+                    return $query->where('name', 'like', '%' . $keyword . '%');
+                });
             })
             ->when(!is_null($shopId), function ($query) use ($shopId) {
                 return $query->where('shop_id', $shopId);

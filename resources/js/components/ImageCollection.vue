@@ -1,10 +1,10 @@
 <template>
     <div class="Products">
         <!-- Create By Joker Banny -->
-        <div class="bg-white">
+        <div class="bg-white min-h-screen">
             <!-- Header Navbar -->
             <nav
-                class="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4"
+                class="fixed top-0 left-0 z-10 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4"
             >
                 <div
                     class="container mx-auto flex max-w-6xl flex-wrap items-center justify-between"
@@ -147,82 +147,149 @@
                 </h1>
             </div>
             <!-- Product List -->
-            <section class="py-10 bg-gray-100">
+            <div class="flex flex-wrap items-center justify-around">
+                <!-- Image with click to open dialog -->
                 <div
-                    class="mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+                    v-for="image in images"
+                    :key="image.id"
+                    class="relative mt-5 flex h-96 w-64 cursor-pointer flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md transition-opacity hover:opacity-90"
+                    @click="openDialog(image.image)"
                 >
-                    <article
-                        v-for="product in products"
-                        :key="product.id"
-                        class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
+                    <img
+                        alt="nature"
+                        class="h-full w-full object-cover object-center"
+                        :src="image.image"
+                    />
+                </div>
+
+                <!-- Backdrop and Dialog -->
+                <div
+                    v-if="isDialogOpen"
+                    @click="closeDialog"
+                    class="fixed inset-0 z-50 grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
+                >
+                    <div
+                        @click.stop
+                        class="relative m-4 w-3/4 min-w-[75%] max-w-[75%] rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl"
                     >
-                        <a href="#">
-                            <div
-                                class="relative flex items-end overflow-hidden rounded-xl"
-                            >
+                        <!-- Header -->
+                        <div
+                            class="flex shrink-0 items-center justify-between p-4 font-sans text-2xl font-semibold leading-snug text-blue-gray-900 antialiased"
+                        >
+                            <div class="flex items-center gap-3">
                                 <img
-                                    class="w-full h-32 object-cover"
-                                    :src="
-                                        product.image &&
-                                        product.image !==
-                                            'https://fnbapi.vietapp.vn'
-                                            ? product.image
-                                            : '/images/product.jpg'
-                                    "
-                                    alt="Product"
+                                    alt="tania andrew"
+                                    :src="selectedImage"
+                                    class="relative inline-block h-9 w-9 rounded-full object-cover object-center"
                                 />
-                            </div>
-
-                            <div class="mt-1 p-2">
-                                <h2 class="text-slate-700">
-                                    {{ product.name }}
-                                </h2>
-                                <p class="mt-1 text-sm text-slate-400">
-                                    {{
-                                        product.category
-                                            ? product.category.name
-                                            : "chưa cấu hình"
-                                    }}
-                                </p>
-
-                                <div
-                                    class="mt-3 flex items-end justify-between"
-                                >
-                                    <p class="text-lg font-bold text-blue-500">
-                                        ${{ product.price }}
-                                    </p>
-
-                                    <div
-                                        class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600"
+                                <div class="-mt-px flex flex-col">
+                                    <p
+                                        class="block font-sans text-sm font-medium leading-normal text-blue-gray-900 antialiased"
                                     >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            class="h-4 w-4"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                                            />
-                                        </svg>
-
-                                        <button class="text-sm">
-                                            Add to cart
-                                        </button>
-                                    </div>
+                                        {{ userName }}
+                                    </p>
+                                    <p
+                                        class="block font-sans text-xs font-normal text-gray-700 antialiased"
+                                    >
+                                        @canwu
+                                    </p>
                                 </div>
                             </div>
-                        </a>
-                    </article>
+                            <div class="flex items-center gap-2">
+                                <button
+                                    class="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-blue-gray-500 transition-all hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    @click="closeDialog"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                        class="h-5 w-5"
+                                    >
+                                        <path
+                                            d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"
+                                        ></path>
+                                    </svg>
+                                </button>
+                                <button
+                                    class="select-none rounded-lg bg-green-500 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    type="button"
+                                    @click="closeDialog"
+                                >
+                                    Free Download
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Image inside Dialog -->
+                        <div
+                            class="relative border-t border-b border-t-blue-gray-100 border-b-blue-gray-100 p-0 font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased"
+                        >
+                            <img
+                                alt="nature"
+                                class="h-[48rem] w-full object-cover object-center"
+                                :src="selectedImage"
+                            />
+                        </div>
+
+                        <!-- Footer -->
+                        <div
+                            class="flex shrink-0 flex-wrap items-center justify-between p-4 text-blue-gray-500"
+                        >
+                            <div class="flex items-center gap-16">
+                                <div>
+                                    <p
+                                        class="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased"
+                                    >
+                                        Views
+                                    </p>
+                                    <p
+                                        class="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased"
+                                    >
+                                        {{ views }}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p
+                                        class="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased"
+                                    >
+                                        Downloads
+                                    </p>
+                                    <p
+                                        class="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased"
+                                    >
+                                        {{ downloads }}
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                class="flex select-none items-center gap-3 rounded-lg border border-blue-gray-500 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-blue-gray-500 transition-all hover:opacity-75 focus:ring focus:ring-blue-gray-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                type="button"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                                    class="h-4 w-4"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M15.75 4.5a3 3 0 11.825 2.066l-8.421 4.679a3.002 3.002 0 010 1.51l8.421 4.679a3 3 0 11-.729 1.31l-8.421-4.678a3 3 0 110-4.132l8.421-4.679a3 3 0 01-.096-.755z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                                Share
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
 
             <!-- Component phân trang -->
             <Pagination
+                class="mt-4"
                 :total-pages="totalPages"
                 :current-page="currentPage"
                 @page-changed="handlePageChange"
@@ -316,25 +383,37 @@
 import apiClient, { defaultApiClient } from "../axios";
 import Pagination from "./Pagination.vue";
 import loading from "./loading.vue";
-
 export default {
-    name: "Home",
+    name: "Collection",
     components: {
         Pagination,
         loading,
     },
     data() {
         return {
+            isDialogOpen: false,
             loading: false,
             user: null,
-            products: [],
+            mainImage:
+                "https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80",
+            profileImage:
+                "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
+            userName: "Tania Andrew",
+            views: "44,082,044",
+            downloads: "553,031",
+
+            selectedImage: null,
+            images: [],
+
+            profileImage: "path_to_profile_image",
+
             currentPage: 1, // Trang hiện tại
             itemsPerPage: 12, // Số sản phẩm mỗi trang
             totalPages: 6, // Số sản phẩm mỗi trang
         };
     },
     mounted() {
-        this.fetchProductData();
+        this.fetchCollection();
 
         // Kiểm tra và lấy user từ localStorage khi component được mount
         const storedUser = localStorage.getItem("user");
@@ -343,27 +422,14 @@ export default {
         }
     },
     methods: {
-        async fetchProductData(page = 1) {
-            this.loading = true;
-            try {
-                // Truyền tham số page và itemsPerPage vào API
-                const response = await apiClient.get("/product", {
-                    params: {
-                        page: page,
-                        limit: this.itemsPerPage, // hoặc 'per_page' tuỳ theo API của bạn
-                    },
-                });
-                this.products = response.data.data;
-                this.currentPage = response.data.pagination.current_page;
-                this.itemsPerPage = response.data.pagination.per_page;
-                this.totalPages = response.data.pagination.last_page;
-            } catch (error) {
-                console.error("Error fetching data", error);
-            } finally {
-                this.loading = false; // Ẩn spinner
-            }
+        openDialog(image) {
+            this.selectedImage = image;
+            this.isDialogOpen = true;
         },
-
+        closeDialog() {
+            this.isDialogOpen = false;
+            this.selectedImage = null;
+        },
         async fetchLogout() {
             this.loading = true;
             try {
@@ -379,9 +445,30 @@ export default {
             }
         },
 
+        async fetchCollection(page = 1) {
+            this.loading = true;
+            try {
+                // Truyền tham số page và itemsPerPage vào API
+                const response = await apiClient.get("/storage/upload", {
+                    params: {
+                        page: page,
+                        limit: this.itemsPerPage, // hoặc 'per_page' tuỳ theo API của bạn
+                    },
+                });
+                this.images = response.data.data;
+                this.currentPage = response.data.pagination.current_page;
+                this.itemsPerPage = response.data.pagination.per_page;
+                this.totalPages = response.data.pagination.last_page;
+            } catch (error) {
+                console.error("Error fetching data", error);
+            } finally {
+                this.loading = false; // Ẩn spinner
+            }
+        },
+
         handlePageChange(page) {
             this.currentPage = page;
-            this.fetchProductData(page); // Gọi lại API với trang mới
+            this.fetchCollection(page); // Gọi lại API với trang mới
         },
     },
 };

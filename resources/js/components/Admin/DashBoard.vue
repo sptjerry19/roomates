@@ -88,9 +88,9 @@
                         <span class="mx-3">UI Elements</span>
                     </a>
 
-                    <a
+                    <router-link
+                        to="/image-upload"
                         class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-                        href="#"
                     >
                         <svg
                             class="w-6 h-6"
@@ -107,12 +107,12 @@
                             ></path>
                         </svg>
 
-                        <span class="mx-3">Tables</span>
-                    </a>
+                        <span class="mx-3">Upload Images</span>
+                    </router-link>
 
-                    <a
+                    <router-link
+                        to="/"
                         class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-                        href="#"
                     >
                         <svg
                             class="w-6 h-6"
@@ -129,8 +129,8 @@
                             ></path>
                         </svg>
 
-                        <span class="mx-3">Forms</span>
-                    </a>
+                        <span class="mx-3">Home</span>
+                    </router-link>
                 </nav>
             </div>
             <div class="flex flex-col flex-1 overflow-hidden">

@@ -85,7 +85,7 @@ class Common
 
     public static function responseProductImage($pathImg)
     {
-        $domain = 'https://fnbapi.vietapp.vn';
+        $domain = 'http://127.0.0.1:8000/storage/';
         return $domain . $pathImg;
     }
 
