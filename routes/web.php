@@ -22,6 +22,6 @@ use Illuminate\Support\Facades\Route;
 // Route::get( '/view/{id}', [UserController::class, 'show'] )->name( 'user.show' );
 // Route::get( '/delete/{id}', [UserController::class, 'distroy'] )->name( 'user.distroy' );
 
-Route::get('/', function () {
+Route::get('/{any}', function () {
     return view('welcome');
-});
+})->where('any', '.*');

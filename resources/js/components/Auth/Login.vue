@@ -101,7 +101,11 @@ export default {
                 );
 
                 // Ví dụ: chuyển hướng người dùng hoặc lưu token đăng nhập
-                this.$router.push("/");
+                if (response.data.roles.includes("Admin")) {
+                    this.$router.push("/admin");
+                } else {
+                    this.$router.push("/");
+                }
             } catch (error) {
                 // Xử lý lỗi đăng nhập
                 console.error(

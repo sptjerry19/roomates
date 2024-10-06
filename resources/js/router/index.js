@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../components/Home.vue"; // Đảm bảo đường dẫn này đúng
 import Login from "../components/Auth/Login.vue";
+import Dashboard from "../components/Admin/DashBoard.vue";
 
 const routes = [
     {
@@ -10,6 +11,10 @@ const routes = [
     {
         path: "/login",
         component: Login,
+    },
+    {
+        path: "/admin",
+        component: Dashboard,
     },
 ];
 
