@@ -4,19 +4,20 @@
         <div class="bg-white">
             <!-- Header Navbar -->
             <nav
-                class="fixed top-0 left-0 z-20 w-full border-b border-gray-200 bg-white py-2.5 px-6 sm:px-4"
+                class="fixed top-0 left-0 z-20 w-full bg-sky-100 py-2.5 px-6 border-b border-gray-200"
             >
                 <div
-                    class="container mx-auto flex max-w-6xl flex-wrap items-center justify-between"
+                    class="container mx-auto flex items-center justify-between"
                 >
-                    <a href="#" class="flex items-center">
+                    <!-- Logo và tên trang -->
+                    <div class="flex items-center">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            class="mr-3 h-6 text-blue-500 sm:h-9"
+                            class="h-8 w-8 text-blue-700"
                         >
                             <path
                                 stroke-linecap="round"
@@ -24,38 +25,87 @@
                                 d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
                             />
                         </svg>
-
-                        <span
-                            class="self-center whitespace-nowrap text-xl font-semibold"
-                            >Termcode</span
+                        <span class="ml-2 text-xl font-bold text-blue-700"
+                            >Roomates</span
                         >
-                    </a>
+                    </div>
 
-                    <!-- avatar -->
-                    <div v-if="user" class="mt-2 sm:mt-0 sm:flex md:order-2">
-                        <!-- Avatar và thông tin người dùng -->
+                    <!-- Thanh tìm kiếm -->
+                    <div class="w-[647px]">
                         <div class="relative">
-                            <img
-                                class="w-10 h-10 rounded-full"
-                                :src="
-                                    user.avatar
-                                        ? user.avatar
-                                        : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'
-                                "
-                                alt="User Avatar"
+                            <input
+                                type="text"
+                                placeholder="Tìm kiếm"
+                                class="w-full rounded-full border-4 border-orange-500 py-2 px-4 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
                             />
-
-                            <span
-                                class="top-0 left-7 absolute w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"
-                            ></span>
+                            <button
+                                class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-2 text-orange-400 hover:text-orange-700"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="h-5 w-4"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M21 21l-6-6m3-9a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z"
+                                    />
+                                </svg>
+                            </button>
                         </div>
-                        <button
-                            @click="fetchLogout"
-                            type="button"
-                            class="rounde ml-4 mr-3 hidden border border-red-700 py-1.5 px-6 text-center text-sm font-medium text-red-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg"
-                        >
-                            Logout
-                        </button>
+                    </div>
+
+                    <!-- Icon người dùng, thông báo, và nút Đăng bài -->
+                    <div v-if="user">
+                        <div class="flex items-center space-x-4">
+                            <!-- Icon người dùng -->
+                            <button class="relative">
+                                <img
+                                    class="w-10 h-10 rounded-full"
+                                    :src="
+                                        user.avatar
+                                            ? user.avatar
+                                            : 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'
+                                    "
+                                    alt="User Avatar"
+                                />
+                            </button>
+
+                            <!-- Icon thông báo -->
+                            <button class="relative">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="h-6 w-6 text-blue-700"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M15.75 9.75V8.25a6 6 0 00-12 0v1.5a5.25 5.25 0 0010.5 0zM10.5 21.75a1.5 1.5 0 001.5-1.5H9a1.5 1.5 0 001.5 1.5z"
+                                    />
+                                </svg>
+                                <!-- Badge số thông báo -->
+                                <span
+                                    class="absolute -top-1 -right-1 flex h-3 w-3 items-center justify-center rounded-full bg-red-500 text-[10px] text-white"
+                                >
+                                    3
+                                </span>
+                            </button>
+
+                            <!-- Nút Đăng bài -->
+                            <button
+                                class="rounded bg-blue-700 py-1.5 px-4 text-sm font-medium text-white hover:bg-blue-800 focus:ring-2 focus:ring-blue-500"
+                            >
+                                Đăng bài
+                            </button>
+                        </div>
                     </div>
 
                     <div v-else class="mt-2 sm:mt-0 sm:flex md:order-2">
@@ -98,100 +148,108 @@
                             </svg>
                         </button>
                     </div>
+                </div>
 
-                    <div
-                        class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
-                        id="navbar-sticky"
+                <!-- Danh sách menu -->
+                <div
+                    class="mt-6 flex justify-center text-2xl font-bold text-blue-700"
+                >
+                    <router-link to="home" class="hover:underline px-10 py-1"
+                        >Trang chủ</router-link
                     >
-                        <ul
-                            class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium"
-                        >
-                            <li>
-                                <router-link
-                                    to="/"
-                                    class="block rounded bg-blue-700 py-2 pl-3 pr-4 text-white md:bg-transparent md:p-0 md:text-blue-700"
-                                    aria-current="page"
-                                    >Home</router-link
-                                >
-                            </li>
-                            <li>
-                                <router-link
-                                    to="/favorite"
-                                    class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700"
-                                    >Favorite</router-link
-                                >
-                            </li>
-                            <li>
-                                <router-link
-                                    to="/admin"
-                                    class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700"
-                                    >Admin</router-link
-                                >
-                            </li>
-                            <li>
-                                <router-link
-                                    to="/collection"
-                                    class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700"
-                                    >Collection</router-link
-                                >
-                            </li>
-                        </ul>
-                    </div>
+                    <router-link
+                        to="phong-tro"
+                        class="hover:underline px-10 py-1"
+                        >Phòng trọ</router-link
+                    >
+                    <router-link
+                        to="roomates"
+                        class="hover:underline px-10 py-1"
+                        >Tìm roommates</router-link
+                    >
+                    <router-link
+                        to="bang-gia"
+                        class="hover:underline px-10 py-1"
+                        >Bảng giá</router-link
+                    >
                 </div>
             </nav>
 
             <!-- Title -->
-            <div class="pt-32 bg-white mb-6">
-                <h1 class="text-center text-2xl font-bold text-gray-800">
-                    All Products
-                </h1>
-            </div>
-            <!-- Product List -->
-            <section class="py-10 bg-gray-100">
+            <div
+                class="mt-32 flex items-center justify-center pt-4 pb-3 bg-gray-100"
+            >
                 <div
-                    class="mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+                    v-for="(filter, index) in filters"
+                    :key="index"
+                    class="flex items-center ml-6 space-x-2 rounded-full border border-orange-400 px-4 py-2 text-orange-500 hover:bg-orange-100 cursor-pointer"
                 >
+                    <!-- Icon -->
+                    <span :class="filter.icon" class="text-orange-500"></span>
+
+                    <!-- Label hoặc Placeholder -->
+                    <span v-if="filter.placeholder" class="text-sm">{{
+                        filter.placeholder
+                    }}</span>
+                    <span v-else class="text-sm">{{ filter.label }}</span>
+
+                    <!-- Dropdown Icon -->
+                    <span class="material-icons">arrow_drop_down</span>
+                </div>
+            </div>
+
+            <!-- Danh sách bài đăng -->
+            <section class="bg-gray-100">
+                <div class="mx-auto max-w-3xl grid-cols-1 gap-6 p-6">
                     <article
-                        v-for="product in products"
-                        :key="product.id"
-                        class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
+                        v-for="post in posts"
+                        :key="post.id"
+                        class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 mb-5"
                     >
                         <a href="#">
+                            <!-- Hình ảnh phòng trọ -->
                             <div
                                 class="relative flex items-end overflow-hidden rounded-xl"
                             >
                                 <img
-                                    class="w-full h-32 object-cover"
+                                    class="w-full h-40 object-cover"
                                     :src="
-                                        product.image &&
-                                        product.image !==
-                                            'https://fnbapi.vietapp.vn'
-                                            ? product.image
-                                            : '/images/product.jpg'
+                                        post.image &&
+                                        post.image !==
+                                            'https://defaultimage.com'
+                                            ? post.image
+                                            : '/images/default-room.jpg'
                                     "
-                                    alt="Product"
+                                    alt="Room Post"
                                 />
+                                <span
+                                    class="absolute top-2 left-2 bg-blue-500 px-2 py-1 text-xs font-medium text-white rounded-full"
+                                >
+                                    {{
+                                        post.type === "room"
+                                            ? "Phòng trọ"
+                                            : "Roommate"
+                                    }}
+                                </span>
                             </div>
 
-                            <div class="mt-1 p-2">
-                                <h2 class="text-slate-700">
-                                    {{ product.name }}
+                            <!-- Thông tin bài đăng -->
+                            <div class="mt-2 p-2">
+                                <h2
+                                    class="text-slate-700 font-bold text-lg truncate"
+                                >
+                                    {{ post.title }}
                                 </h2>
                                 <p class="mt-1 text-sm text-slate-400">
-                                    {{
-                                        product.category
-                                            ? product.category.name
-                                            : "chưa cấu hình"
-                                    }}
+                                    {{ post.location }}
                                 </p>
 
                                 <div
-                                    class="mt-3 flex items-end justify-between"
+                                    class="mt-3 flex items-center justify-between"
                                 >
                                     <p class="text-lg font-bold text-blue-500">
-                                        ${{ product.price }}
+                                        {{ post.price }} VNĐ/tháng
                                     </p>
-
                                     <div
                                         class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600"
                                     >
@@ -206,12 +264,11 @@
                                             <path
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
-                                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                                                d="M15.75 9V5.25a3.75 3.75 0 00-7.5 0V9m0 0a3.75 3.75 0 017.5 0m-7.5 0v10.5a3.75 3.75 0 007.5 0V9"
                                             />
                                         </svg>
-
                                         <button class="text-sm">
-                                            Add to cart
+                                            Xem chi tiết
                                         </button>
                                     </div>
                                 </div>
@@ -325,6 +382,63 @@ export default {
     },
     data() {
         return {
+            filters: [
+                {
+                    label: "Từ khóa",
+                    placeholder: "Từ khóa, Đường, Quận, Địa điểm...",
+                    icon: "material-icons-outlined search",
+                },
+                {
+                    label: "Khu vực",
+                    icon: "material-icons-outlined location_on",
+                },
+                {
+                    label: "Diện tích",
+                    icon: "material-icons-outlined category",
+                },
+                {
+                    label: "Giá thuê",
+                    icon: "material-icons-outlined attach_money",
+                },
+                {
+                    label: "Lọc thêm",
+                    icon: "material-icons-outlined filter_list",
+                },
+            ],
+            posts: [
+                {
+                    id: 1,
+                    title: "Phòng trọ giá rẻ Quận 1",
+                    location: "123 Đường ABC, Quận 1, TP. Hồ Chí Minh",
+                    price: "3.000.000",
+                    image: "/images/room1.jpg",
+                    type: "room",
+                },
+                {
+                    id: 2,
+                    title: "Tìm roommate ở ghép Quận 3",
+                    location: "45 Đường XYZ, Quận 3, TP. Hồ Chí Minh",
+                    price: "1.500.000",
+                    image: "/images/roommate1.jpg",
+                    type: "roommate",
+                },
+                {
+                    id: 3,
+                    title: "Phòng trọ mới xây Bình Thạnh",
+                    location: "78 Đường DEF, Bình Thạnh, TP. Hồ Chí Minh",
+                    price: "2.800.000",
+                    image: "/images/room2.jpg",
+                    type: "room",
+                },
+                {
+                    id: 4,
+                    title: "Cần tìm bạn ở ghép Thủ Đức",
+                    location: "22 Đường LMN, Thủ Đức, TP. Hồ Chí Minh",
+                    price: "1.800.000",
+                    image: "/images/roommate2.jpg",
+                    type: "roommate",
+                },
+            ],
             loading: false,
             user: null,
             products: [],
