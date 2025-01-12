@@ -547,10 +547,10 @@ export default {
         };
     },
     mounted() {
-        this.fetchProductData();
+        this.fetchRoomateData();
     },
     methods: {
-        async fetchProductData(page = 1) {
+        async fetchRoomateData(page = 1) {
             this.loading = true;
             try {
                 // Truyền tham số page và itemsPerPage vào API
@@ -573,7 +573,7 @@ export default {
         },
         handlePageChange(page) {
             this.currentPage = page;
-            this.fetchProductData(page); // Gọi lại API với trang mới
+            this.fetchRoomateData(page); // Gọi lại API với trang mới
         },
         formatVND,
     },

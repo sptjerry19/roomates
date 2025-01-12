@@ -448,7 +448,7 @@ export default {
         };
     },
     mounted() {
-        this.fetchProductData();
+        this.fetchRoomatesData();
 
         // Kiểm tra và lấy user từ localStorage khi component được mount
         const storedUser = localStorage.getItem("user");
@@ -457,7 +457,7 @@ export default {
         }
     },
     methods: {
-        async fetchProductData(page = 1) {
+        async fetchRoomatesData(page = 1) {
             this.loading = true;
             try {
                 // Truyền tham số page và itemsPerPage vào API
@@ -495,7 +495,7 @@ export default {
 
         handlePageChange(page) {
             this.currentPage = page;
-            this.fetchProductData(page); // Gọi lại API với trang mới
+            this.fetchRoomatesData(page); // Gọi lại API với trang mới
         },
     },
 };
